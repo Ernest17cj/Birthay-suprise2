@@ -257,7 +257,7 @@ onclick="showVideo()">Click Me!!</button>
 <br><br>
  
 <video autoplay loop muted playsinline id="myVideo" width="640" controls style="display:none;">
-    <source src="video.mp4" type="video/mp4">.
+    <source src="video.MP4" type="video/MP4">.
 </video>
 </footer>
 
@@ -344,6 +344,8 @@ function showVideo() {
     const video = document.getElementById("myVideo");
     video.style.display = "block";
     video.play();
+  if (video.requestFullscreen) {
+      video.requestFullscreen();}
 }
 </script>
 </body>
