@@ -1,1 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Oyin 🎂</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #c9a84c; --gold-light: #f0d080; --cream: #fdf6ec;
+    --dark: #1a1a2e; --rose: #e8a0a0; --blush: #f5dada;
+    --deep: #2d1b4e; --teal: #0d7377; --teal-light: #14a085;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Montserrat', sans-serif; background: var(--dark); color: #fff; overflow-x: hidden; }
 
+  #particles { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
+  .particle { position:absolute; border-radius:50%; animation:floatUp linear infinite; opacity:0; }
+  @keyframes floatUp {
+    0%   { transform:translateY(110vh) scale(0); opacity:0; }
+    10%  { opacity:0.6; }
+    90%  { opacity:0.4; }
+    100% { transform:translateY(-10vh) scale(1.2); opacity:0; }
+  }
+
+  .hero { position:relative; height:100vh; overflow:hidden; z-index:1; }
+  .hero-slides { display:flex; height:100%; transition:transform 0.9s cubic-bezier(0.77,0,0.175,1); }
+  .hero-slide { min-width:100%; height:100%; position:relative; overflow:hidden; }
+  .hero-slide img { width:100%; height:100%; object-fit:cover; transform:scale(1.08); transition:transform 6s ease; filter:brightness(0.55); }
+  .hero-slide.active img { transform:scale(1); }
+  .hero-overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(to bottom,rgba(26,26,46,0.2) 0%,rgba(26,26,46,0.1) 40%,rgba(26,26,46,0.85) 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:2rem;
+  }
+  .hero-tag { font-size:0.7rem; letter-spacing:6px; text-transform:uppercase; color:var(--gold-light); margin-bottom:1.2rem; opacity:0; transform:translateY(20px); transition:opacity 0.8s 0.3s,transform 0.8s 0.3s; }
+  .hero-title { font-family:'Cormorant Garamond',serif; font-size:clamp(3rem,10vw,7rem); font-style:italic; font-weight:300; color:#fff; line-height:1.1; opacity:0; transform:translateY(30px); transition:opacity 0.9s 0.5s,transform 0.9s 0.5s; }
+  .hero-title span { color:var(--gold); }
+  .hero-sub { margin-top:1.2rem; font-size:0.85rem; letter-spacing:3px; color:var(--blush); opacity:0; transform:translateY(20px); transition:opacity 0.8s 0.8s,transform 0.8s 0.8s; }
+  .hero-slide.active .hero-tag,.hero-slide.active .hero-title,.hero-slide.active .hero-sub { opacity:1; transform:translateY(0); }
+  .hero-dots { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; gap:10px; z-index:5; }
+  .hero-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.4); cursor:pointer; transition:all 0.3s; border:none; }
+  .hero-dot.active { background:var(--gold); width:28px; border-radius:4px; }
+  .hero-arrow { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.3); color:#fff; font-size:1.4rem; width:48px; height:48px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:5; transition:all 0.3s; backdrop-filter:blur(4px); }
+  .hero-arrow:hover { background:var(--gold); border-color:var(--gold); }
+  .hero-arrow.prev { left:1.5rem; }
+  .hero-arrow.next { right:1.5rem; }
+  .scroll-hint { position:absolute; bottom:4rem; right:2rem; display:flex; flex-direction:column; align-items:center; gap:6px; z-index:5; opacity:0.6; animation:bounce 2s infinite; }
+  .scroll-hint span { font-size:0.6rem; letter-spacing:3px; text-transform:uppercase; }
+  @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);} }
+
+  section { position:relative; z-index:1; }
+
+  .letter-section { padding:6rem 2rem; background:linear-gradient(135deg,var(--deep) 0%,#1a1a2e 100%); display:flex; align-items:center; justify-content:center; }
+  .letter-card { max-width:700px; background:rgba(255,255,255,0.04); border:1px solid rgba(201,168,76,0.25); border-radius:20px; padding:3rem; position:relative; overflow:hidden; }
+  .letter-card::before { content:'\201C'; position:absolute; top:-1rem; left:1.5rem; font-family:'Cormorant Garamond',serif; font-size:10rem; color:rgba(201,168,76,0.08); line-height:1; }
+  .letter-card h2 { font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-style:italic; color:var(--gold); margin-bottom:1.5rem; }
+  .letter-card p { font-size:1rem; line-height:1.9; color:rgba(255,255,255,0.82); margin-bottom:1.2rem; }
+  .letter-card .signature { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-style:italic; color:var(--gold-light); text-align:right; }
+
+  .gallery-section { padding:5rem 2rem; background:#0f0f1f; }
+  .section-head { text-align:center; margin-bottom:3.5rem; }
+  .section-head .eyebrow { font-size:0.65rem; letter-spacing:6px; text-transform:uppercase; color:var(--teal-light); margin-bottom:0.8rem; }
+  .section-head h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,5vw,3.5rem); font-style:italic; font-weight:300; color:#fff; }
+  .section-head h2 em { color:var(--gold); font-style:italic; }
+  .gallery-slider-wrap { position:relative; overflow:hidden; }
+  .gallery-track { display:flex; gap:20px; transition:transform 0.7s cubic-bezier(0.77,0,0.175,1); padding:1rem 0.5rem 2rem; }
+  .gallery-card { min-width:320px; border-radius:16px; overflow:hidden; position:relative; cursor:pointer; flex-shrink:0; box-shadow:0 20px 50px rgba(0,0,0,0.5); transform:scale(0.95); transition:transform 0.4s,box-shadow 0.4s; }
+  .gallery-card.center-card { transform:scale(1.04); box-shadow:0 30px 70px rgba(201,168,76,0.25); }
+  .gallery-card img { width:100%; height:420px; object-fit:cover; display:block; transition:transform 0.6s; }
+  .gallery-card:hover img { transform:scale(1.05); }
+  .gallery-card-label { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent,rgba(13,115,119,0.85)); padding:2rem 1.2rem 1rem; transform:translateY(100%); transition:transform 0.4s; }
+  .gallery-card:hover .gallery-card-label { transform:translateY(0); }
+  .gallery-card-label span { font-size:0.85rem; letter-spacing:2px; text-transform:uppercase; color:#fff; }
+  .gallery-controls { display:flex; justify-content:center; align-items:center; gap:1rem; margin-top:1rem; }
+  .g-btn { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:#fff; width:44px; height:44px; border-radius:50%; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; transition:all 0.3s; }
+  .g-btn:hover { background:var(--teal); border-color:var(--teal); }
+  .g-dots { display:flex; gap:8px; }
+  .g-dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.25); cursor:pointer; border:none; transition:all 0.3s; }
+  .g-dot.active { background:var(--teal-light); width:22px; border-radius:3px; }
+
+  .wishes-section { padding:5rem 2rem; background:linear-gradient(135deg,#0d3b3b 0%,var(--deep) 100%); }
+  .wishes-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.5rem; max-width:900px; margin:0 auto; }
+  .wish-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:2rem 1.5rem; text-align:center; transition:transform 0.4s,border-color 0.4s; opacity:0; transform:translateY(40px); }
+  .wish-card.in-view { opacity:1; transform:translateY(0); transition:opacity 0.6s,transform 0.6s; }
+  .wish-card:hover { transform:translateY(-6px); border-color:var(--gold); }
+  .wish-icon { font-size:2.5rem; margin-bottom:0.8rem; }
+  .wish-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-style:italic; color:var(--gold-light); margin-bottom:0.5rem; }
+  .wish-card p { font-size:0.85rem; color:rgba(255,255,255,0.6); line-height:1.7; }
+
+  .memories-section { padding:5rem 2rem; background:#0a0a1a; }
+  .memories-main { position:relative; max-width:700px; margin:0 auto 1.5rem; border-radius:20px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,0.6); }
+  .memories-main img { width:100%; height:500px; object-fit:cover; display:block; transition:opacity 0.6s,transform 0.6s; }
+  .memories-main img.fade-out { opacity:0; transform:scale(1.03); }
+  .memories-caption { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent,rgba(0,0,0,0.75)); padding:3rem 1.5rem 1.5rem; font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-style:italic; color:rgba(255,255,255,0.9); }
+  .memories-thumbs { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .mem-thumb { width:80px; height:80px; border-radius:10px; overflow:hidden; cursor:pointer; border:2px solid transparent; transition:border-color 0.3s,transform 0.3s; flex-shrink:0; }
+  .mem-thumb.active { border-color:var(--gold); transform:scale(1.08); }
+  .mem-thumb img { width:100%; height:100%; object-fit:cover; }
+
+  .countdown-section { padding:5rem 2rem; background:linear-gradient(180deg,#1a1a2e 0%,#0d3b3b 100%); text-align:center; }
+  .countdown-section .section-head { margin-bottom:2.5rem; }
+  .countdown-bar { display:flex; justify-content:center; gap:clamp(1rem,4vw,3rem); flex-wrap:wrap; margin-bottom:2.5rem; }
+  .cd-block { background:rgba(255,255,255,0.05); border:1px solid rgba(201,168,76,0.2); border-radius:14px; padding:1.5rem 2rem; min-width:90px; }
+  .cd-num { font-family:'Cormorant Garamond',serif; font-size:3.5rem; font-weight:600; color:var(--gold); line-height:1; display:block; }
+  .cd-label { font-size:0.6rem; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-top:0.3rem; display:block; }
+
+  footer { background:var(--dark); text-align:center; padding:3rem 2rem; border-top:1px solid rgba(201,168,76,0.15); z-index:1; position:relative; }
+  footer .heart { font-size:2rem; display:block; animation:heartbeat 1.4s infinite; margin-bottom:1rem; }
+  @keyframes heartbeat { 0%,100%{transform:scale(1);} 14%{transform:scale(1.25);} 28%{transform:scale(1);} 42%{transform:scale(1.18);} 70%{transform:scale(1);} }
+  footer p { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-style:italic; color:rgba(255,255,255,0.6); }
+
+  @keyframes bounceIn { 0%{transform:scale(0.3) translateY(60px);opacity:0;} 50%{transform:scale(1.08) translateY(-10px);opacity:1;} 70%{transform:scale(0.95) translateY(4px);} 100%{transform:scale(1) translateY(0);opacity:1;} }
+  .bounce-in { animation:bounceIn 0.8s cubic-bezier(0.215,0.61,0.355,1) forwards; }
+
+  @media(max-width:600px){ .gallery-card{min-width:270px;} .gallery-card img{height:340px;} .letter-card{padding:2rem 1.5rem;} .hero-arrow{width:38px;height:38px;font-size:1rem;} }
+</style>
+</head>
+<body>
+<div id="particles"></div>
+
+<section class="hero">
+  <div class="hero-slides" id="heroSlides">
+    <div class="hero-slide active" id="hslide-0">
+      <img src="IMG_PORTRAIT" alt="Oyin portrait">
+      <div class="hero-overlay">
+        <div class="hero-tag">A Special Day for a Special Soul</div>
+        <h1 class="hero-title">Happy Birthday,<br><span>Oyin</span></h1>
+        <div class="hero-sub">Beautiful · Blessed · Extraordinary</div>
+      </div>
+    </div>
+    <div class="hero-slide" id="hslide-1">
+      <img src="IMG_DINNER" alt="Oyin in Red">
+      <div class="hero-overlay">
+        <div class="hero-tag">Celebrating Every Moment With You</div>
+        <h1 class="hero-title">Another Year<br><span>More Radiant</span></h1>
+        <div class="hero-sub">Grace · Strength · Light</div>
+      </div>
+    </div>
+    <div class="hero-slide" id="hslide-2">
+      <img src="IMG_COUPLE" alt="Together always">
+      <div class="hero-overlay">
+        <div class="hero-tag">Forever Grateful for You</div>
+        <h1 class="hero-title">You Make Life<br><span>So Beautiful</span></h1>
+      
+      </div>
+    </div>
+  </div>
+  <button class="hero-arrow prev" onclick="heroMove(-1)">&#8592;</button>
+  <button class="hero-arrow next" onclick="heroMove(1)">&#8594;</button>
+  <div class="hero-dots" id="heroDots"></div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <svg width="20" height="30" viewBox="0 0 20 30" fill="none">
+      <rect x="1" y="1" width="18" height="28" rx="9" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+      <circle cx="10" cy="8" r="3" fill="rgba(255,255,255,0.6)">
+        <animate attributeName="cy" values="8;18;8" dur="1.8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0.3;1" dur="1.8s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+  </div>
+</section>
+
+<section class="letter-section">
+  <div class="letter-card" id="letterCard">
+    <h2>A Letter Just for You</h2>
+    <p><strong style="color:var(--gold-light)">Another year older, another year finer, wiser, and more wonderful.</strong></p>
+    <p>Happy 25th my Angel babyyy. Thank you for being th best friend anyone could ever wih for.</p>
+    <p>Thank you for the love, support and the sacrifices. </p>
+    <p>Your presence makes the hard days lighter, the ordinary days brighter, and the beautiful moments even more memorable. I cherish you deeply, in more ways than you can ever imagine.</p>
+    <p>tryna keep it short so my words don’t take the whole space 😂❤️ </p>
+    <br>
+    <p>Just like the way you bring joy and happiness to everyone around you most especially me,and the happiness you brought me during my last birthday,I am determined to give you the best,You are going to have the best birthday yet</p>
+    <div class="signature">— With all my love, always</div>
+  </div>
+</section>
+
+<section class="gallery-section">
+  <div class="section-head">
+    <div class="eyebrow">Our Favourite Moments</div>
+    <h2>Capturing Your <em>Light</em> ✨</h2>
+  </div>
+  <div class="gallery-slider-wrap">
+    <div class="gallery-track" id="galleryTrack">
+      <div class="gallery-card center-card"><img src="IMG_COUPLE" alt="Best Friends"><div class="gallery-card-label"><span>Best Friends Forever</span></div></div>
+      <div class="gallery-card"><img src="Together1" alt="Sisters"><div class="gallery-card-label"><span>Better Together</span></div></div>
+      <div class="gallery-card"><img src="Together2" alt="Together"><div class="gallery-card-label"><span>Soul Sisters</span></div></div>
+      <div class="gallery-card"><img src="Together3" alt="Besties"><div class="gallery-card-label"><span>My Favourite Human</span></div></div>
+      <div class="gallery-card"><img src="Together4" alt="Twins"><div class="gallery-card-label"><span>Through Thick and Thin</span></div></div>
+      
+    </div>
+  </div>
+  <div class="gallery-controls">
+    <button class="g-btn" onclick="galleryMove(-1)">&#8592;</button>
+    <div class="g-dots" id="gDots"></div>
+    <button class="g-btn" onclick="galleryMove(1)">&#8594;</button>
+  </div>
+</section>
+
+<section class="wishes-section">
+  <div class="section-head">
+    <div class="eyebrow">Birthday Wishes</div>
+    <h2>Cheers to New <em>Chapters</em> 🥂</h2>
+  </div>
+  <div class="wishes-grid">
+    <div class="wish-card"><div class="wish-icon">✨</div><h3>More Wins</h3><p>May every goal you set be a stepping stone to your greatest version yet.</p></div>
+    <div class="wish-card"><div class="wish-icon">🥂</div><h3>Bigger Blessings</h3><p>May doors open for you that you never even knocked on. Abundance in all things.</p></div>
+    <div class="wish-card"><div class="wish-icon">🌺</div><h3>Endless Joy</h3><p>Joy that never runs dry — deep, warm, and constant like the sun.</p></div>
+    <div class="wish-card"><div class="wish-icon">👑</div><h3>Every Dream</h3><p>Every dream living in your heart — may this year breathe life into each one.</p></div>
+    <div class="wish-card"><div class="wish-icon">🍀</div><h3>Good Health</h3><p>Strength in your body, peace in your mind, and warmth in your spirit.</p></div>
+    <div class="wish-card"><div class="wish-icon">💛</div><h3>Pure Love</h3><p>Surrounded always by people who see your worth and cherish you fully.</p></div>
+  </div>
+</section>
+
+<section class="memories-section">
+  <div class="section-head">
+    <div class="eyebrow" style="color:var(--rose)">Photo Memories</div>
+    <h2>Moments We <em>Treasure</em> 📸</h2>
+  </div>
+  <div class="memories-main">
+    <img src="Together4" alt="Memory" id="memMain">
+    <div class="memories-caption" id="memCaption">Through Thick and Thin</div>
+  </div>
+  <div class="memories-thumbs" id="memThumbs">
+    <div class="mem-thumb active" onclick="switchMem(0,this)"><img src="Together4" alt=""></div>
+    <div class="mem-thumb" onclick="switchMem(1,this)"><img src="Together1" alt=""></div>
+    <div class="mem-thumb" onclick="switchMem(2,this)"><img src="Memories1" alt=""></div>
+    <div class="mem-thumb" onclick="switchMem(3,this)"><img src="Memories2" alt=""></div>
+    <div class="mem-thumb" onclick="switchMem(4,this)"><img src="Memories3" alt=""></div>
+    <div class="mem-thumb" onclick="switchMem(5,this)"><img src="Memories4" alt=""></div>
+  </div>
+</section>
+
+<section class="countdown-section">
+  <div class="section-head">
+    <div class="eyebrow">Counting Every Precious Moment</div>
+    <h2>Days you have been <em>Lighting the World</em> 🌟</h2>
+  </div>
+  <div class="countdown-bar">
+    <div class="cd-block"><span class="cd-num" id="cdD">00</span><span class="cd-label">Days</span></div>
+    <div class="cd-block"><span class="cd-num" id="cdH">00</span><span class="cd-label">Hours</span></div>
+    <div class="cd-block"><span class="cd-num" id="cdM">00</span><span class="cd-label">Minutes</span></div>
+    <div class="cd-block"><span class="cd-num" id="cdS">00</span><span class="cd-label">Seconds</span></div>
+  </div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:rgba(255,255,255,0.5)">since the world got a little more beautiful 🌹</p>
+</section>
+
+<footer>
+  <span class="heart">💛</span>
+  <p>Happy Birthday, Oyin — you are loved beyond words.</p>
+  <p style="font-size:0.85rem;margin-top:0.6rem;opacity:0.4">With all my love, always ✦</p>
+   
+<button type="button" style="background-color: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;"
+onclick="showVideo()">Click Me!!</button>
+ 
+<br><br>
+ 
+<video id="myVideo" width="640" controls style="display:none;">
+    <source src="video.mp4" type="video/mp4">.
+</video>
+</footer>
+
+<script>
+const IMG_PORTRAIT = "IMG_PORTRAIT.jpg"
+const IMG_DINNER   = "IMG_RED.jpg"
+const IMG_COUPLE   = "IMG_COUPLE.jpg"
+const Together1    = "Together1.jpg"
+const Together2    = "Together2.jpg"
+const Together3    = "Together3.jpg"
+const Together4    = "Together4.jpg"
+const Memories1    = "Memories1.jpg"
+const Memories2    = "Memories2.jpg"
+const Memories3    = "Memories3.jpg"
+const Memories4    = "Memories4.jpg"
+
+// Inject base64 src into all placeholder images
+document.querySelectorAll('img').forEach(img => {
+  if(img.src.includes('IMG_PORTRAIT')) img.src = IMG_PORTRAIT;
+  else if(img.src.includes('IMG_DINNER')) img.src = IMG_DINNER;
+  else if(img.src.includes('IMG_COUPLE')) img.src = IMG_COUPLE;
+  else if(img.src.includes('Together1'))  img.src = Together1;
+  else if(img.src.includes('Together2')) img.src = Together2;
+  else if(img.src.includes('Together3')) img.src = Together3;
+  else if(img.src.includes('Together4')) img.src = Together4;
+  else if(img.src.includes('Memories1'))  img.src = Memories1;
+  else if(img.src.includes('Memories2')) img.src = Memories2;
+  else if(img.src.includes('Memories3')) img.src = Memories3;
+  else if(img.src.includes('Memories4')) img.src = Memories4;
+});
+
+const memSrcs = [Together4, Together1, Memories1, Memories2, Memories3, Memories4];
+const memCaps = ['Best Friends Forever.','Soul Sisters','My Favourite Human','Through Thick and Thin','Better Together','Every moment with you is a treasure.','Ride or Die','Twin'];
+const memImg = document.getElementById('memMain');
+const memCap = document.getElementById('memCaption');
+
+function switchMem(idx,el){
+  memImg.classList.add('fade-out');
+  setTimeout(()=>{ memImg.src=memSrcs[idx]; memCap.textContent=memCaps[idx]; memImg.classList.remove('fade-out'); },350);
+  document.querySelectorAll('.mem-thumb').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+const pContainer=document.getElementById('particles');
+const pColors=['#c9a84c','#f0d080','#e8a0a0','#14a085','#ffffff','#d4a0e0'];
+for(let i=0;i<40;i++){
+  const p=document.createElement('div'); p.className='particle';
+  const size=Math.random()*8+3;
+  p.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;background:${pColors[Math.floor(Math.random()*pColors.length)]};animation-duration:${Math.random()*12+8}s;animation-delay:${Math.random()*10}s;opacity:0;`;
+  pContainer.appendChild(p);
+}
+
+let heroIdx=0;
+const heroSlides=document.querySelectorAll('.hero-slide');
+const heroDotsCon=document.getElementById('heroDots');
+heroSlides.forEach((_,i)=>{ const d=document.createElement('button'); d.className='hero-dot'+(i===0?' active':''); d.onclick=()=>heroGo(i); heroDotsCon.appendChild(d); });
+function heroGo(n){ heroSlides[heroIdx].classList.remove('active'); heroDotsCon.children[heroIdx].classList.remove('active'); heroIdx=(n+heroSlides.length)%heroSlides.length; heroSlides[heroIdx].classList.add('active'); heroDotsCon.children[heroIdx].classList.add('active'); document.getElementById('heroSlides').style.transform=`translateX(-${heroIdx*100}%)`; }
+function heroMove(dir){ heroGo(heroIdx+dir); }
+setInterval(()=>heroMove(1),5000);
+
+let galleryIdx=0;
+const galleryCards=document.querySelectorAll('.gallery-card');
+const gDotsEl=document.getElementById('gDots');
+const track=document.getElementById('galleryTrack');
+const cardW=320+20;
+galleryCards.forEach((_,i)=>{ const d=document.createElement('button'); d.className='g-dot'+(i===0?' active':''); d.onclick=()=>galleryGo(i); gDotsEl.appendChild(d); });
+function galleryGo(n){ galleryCards[galleryIdx].classList.remove('center-card'); gDotsEl.children[galleryIdx].classList.remove('active'); galleryIdx=(n+galleryCards.length)%galleryCards.length; galleryCards[galleryIdx].classList.add('center-card'); gDotsEl.children[galleryIdx].classList.add('active'); const offset=galleryIdx*cardW-(track.parentElement.offsetWidth/2-cardW/2); track.style.transform=`translateX(-${Math.max(0,offset)}px)`; }
+function galleryMove(dir){ galleryGo(galleryIdx+dir); }
+setInterval(()=>galleryMove(1),4000);
+
+const wishCards=document.querySelectorAll('.wish-card');
+const obs=new IntersectionObserver((entries)=>{ entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('in-view'),i*120); }); },{threshold:0.15});
+wishCards.forEach(c=>obs.observe(c));
+
+const letterCard=document.getElementById('letterCard');
+const lObs=new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('bounce-in'); }); },{threshold:0.2});
+lObs.observe(letterCard);
+
+const birthday=new Date('2001-07-13T00:00:00');
+function updateCD(){ const now=new Date(); const diff=now-birthday; const days=Math.floor(diff/86400000); const hours=Math.floor((diff%86400000)/3600000); const mins=Math.floor((diff%3600000)/60000); const secs=Math.floor((diff%60000)/1000); document.getElementById('cdD').textContent=String(days).padStart(5,'0'); document.getElementById('cdH').textContent=String(hours).padStart(2,'0'); document.getElementById('cdM').textContent=String(mins).padStart(2,'0'); document.getElementById('cdS').textContent=String(secs).padStart(2,'0'); }
+updateCD(); setInterval(updateCD,1000);
+
+function showVideo() {
+    const video = document.getElementById("myVideo");
+    video.style.display = "block";
+    video.play();
+ if (video.requestFullscreen) {
+      video.requestFullscreen();}
+}
+</script>
+</body>
+</html>
