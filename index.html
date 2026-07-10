@@ -250,15 +250,10 @@
   <span class="heart">💛</span>
   <p>Happy Birthday, Oyin — you are loved beyond words.</p>
   <p style="font-size:0.85rem;margin-top:0.6rem;opacity:0.4">With all my love, always ✦</p>
-   
-<button type="button" style="background-color: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;"
-onclick="showVideo()">Click Me!!</button>
- 
-<br><br>
- 
-<video autoplay loop muted playsinline id="myVideo" width="640" controls style="display:none;">
-    <source src="video.MP4" type="video/MP4">.
-</video>
+   <br><br>
+<a href="https://www.greenvelope.com/card/nrVvgBr/0">
+    <img src="Click.jpg" alt="Click Me!!" style="width: 100px; height: 50px;">
+</a>
 </footer>
 
 <script>
@@ -340,13 +335,6 @@ const birthday=new Date('2001-07-13T00:00:00');
 function updateCD(){ const now=new Date(); const diff=now-birthday; const days=Math.floor(diff/86400000); const hours=Math.floor((diff%86400000)/3600000); const mins=Math.floor((diff%3600000)/60000); const secs=Math.floor((diff%60000)/1000); document.getElementById('cdD').textContent=String(days).padStart(5,'0'); document.getElementById('cdH').textContent=String(hours).padStart(2,'0'); document.getElementById('cdM').textContent=String(mins).padStart(2,'0'); document.getElementById('cdS').textContent=String(secs).padStart(2,'0'); }
 updateCD(); setInterval(updateCD,1000);
 
-function showVideo() {
-    const video = document.getElementById("myVideo");
-    video.style.display = "block";
-    video.play();
-  if (video.requestFullscreen) {
-      video.requestFullscreen();}
-}
 </script>
 </body>
 </html>
